@@ -13,7 +13,7 @@ export default class Card {
   //	</div>
   //</div>
 
-  create() {
+  /*create() {
     let divCard = document.createElement("div");
     divCard.classList.add("card");
     divCard.style = "width: 18rem;";
@@ -45,5 +45,35 @@ export default class Card {
     a.href = "#";
     a.innerHTML = "Go somewhere";
     divCard.appendChild(a);
+  }*/
+
+  create() {
+    let id = this.data.first_name + this.data.last_name;
+
+    let innerHTML = document.getElementById("app").innerHTML;
+
+    document.getElementById("app").innerHTML =
+      innerHTML +
+      `
+      <div class="card" style="width: 18rem;">
+        <img id=` +
+      id +
+      `img src="https://reqres.in/img/faces/2-image.jpg" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 id=` +
+      id +
+      `h5 class="card-title"></h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      `;
+
+    let img = document.getElementById(id + `img`);
+    img.src = this.data.avatar;
+    img.alt = this.data.first_name;
+
+    let h5 = document.getElementById(id + `h5`);
+    h5.innerHTML = this.data.first_name + " " + this.data.last_name;
   }
 }
