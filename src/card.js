@@ -48,7 +48,7 @@ export default class Card {
   }*/
 
   create() {
-    let id = this.data.first_name + this.data.last_name;
+    let name = this.data.first_name + ` ` + this.data.last_name;
 
     let innerHTML = document.getElementById("app").innerHTML;
 
@@ -56,24 +56,19 @@ export default class Card {
       innerHTML +
       `
       <div class="card" style="width: 18rem;">
-        <img id=` +
-      id +
-      `img src="https://reqres.in/img/faces/2-image.jpg" class="card-img-top" alt="">
+        <img src="` +
+      this.data.avatar +
+      `" class="card-img-top" alt="` +
+      this.data.first_name +
+      `">
         <div class="card-body">
-          <h5 id=` +
-      id +
-      `h5 class="card-title"></h5>
+          <h5 class="card-title">` +
+      name +
+      `</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
       `;
-
-    let img = document.getElementById(id + `img`);
-    img.src = this.data.avatar;
-    img.alt = this.data.first_name;
-
-    let h5 = document.getElementById(id + `h5`);
-    h5.innerHTML = this.data.first_name + " " + this.data.last_name;
   }
 }
