@@ -1,4 +1,5 @@
 import Card from "./card";
+
 import "./styles.css";
 
 let app = document.getElementById("app");
