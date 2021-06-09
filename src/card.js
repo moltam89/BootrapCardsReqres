@@ -3,7 +3,7 @@ import Modal from "./modal.js";
 import { processTemplate } from "./util.js";
 export default class Card {
   constructor(parent, data) {
-    this.id = data.first_name + data.last_name;
+    this.id = "_" + data.id;
     this.parent = parent;
     this.data = data;
     this.data.name = this.data.first_name + ` ` + this.data.last_name;
