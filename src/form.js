@@ -1,5 +1,5 @@
 export default class Form {
-  constructor(data) {
+  constructor() {
     this.template = `
     <form>
       <div class="form-group">
