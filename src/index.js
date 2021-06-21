@@ -6,30 +6,15 @@ import "./styles.css";
 
 let app = document.getElementById("app");
 
-const sendData = () => {
+const updateData = (id, name) => {
   axios
-    .post("https://reqres.in/api/register", {
-      email: "eve.holt@reqres.in",
-      password: "pistol"
+    .put("https://reqres.in/api/users/" + id, {
+      name: "name"
     })
     .then((response) => {
       console.log(response);
     });
 };
-
-const updateData = () => {
-  axios
-    .put("https://reqres.in/api/users/2", {
-      name: "morepheus",
-      job: "zion resident"
-    })
-    .then((response) => {
-      console.log(response);
-    });
-};
-
-sendData();
-updateData();
 
 const showUserCards = () => {
   axios.get("https://reqres.in/api/users").then((response) => {
@@ -41,12 +26,44 @@ const showUserCards = () => {
       const button = document.querySelector("#button" + data.id);
 
       button.addEventListener("click", () => {
-        console.log("profile");
         const myModal = new bootstrap.Modal(document.getElementById("myModal"));
         const myModalBody = document.querySelector(".modal-body");
         const form = new Form();
         myModalBody.innerHTML = processTemplate(form.getHTML(), data);
         myModal.show();
+
+        let saveButton = document.querySelector("#saveButton");
+
+        saveButton.addEventListener("click", () => {
+          let first_name = document.querySelector("#formGroupExampleInput1")
+            .value;
+          let last_name = document.querySelector("#formGroupExampleInput2")
+            .value;
+          let email = document.querySelector("#exampleInputEmail1").value;
+
+          if (first_name != "") {
+            data.first_name = first_name;
+          }
+
+          if (last_name != "") {
+            data.last_name = last_name;
+          }
+
+          if (email != "") {
+            data.email = email;
+          }
+
+          data.name = data.first_name + ` ` + data.last_name;
+
+          let oldCard = document.querySelector("#card" + data.id);
+          oldCard.querySelector("h5").innerHTML = data.name;
+
+          if (first_name != "" || last_name != "") {
+            updateData(data.id, data.name);
+          }
+
+          myModal.hide();
+        });
       });
     }
     /*const buttons = document.querySelectorAll(".profileButton");

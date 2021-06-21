@@ -3,12 +3,12 @@ export default class Form {
     this.template = `
     <form>
       <div class="form-group">
-        <label for="exampleInputPassword1">First Name</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="{first_name}">
+        <label for="formGroupExampleInput1">First Name</label>
+        <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="{first_name}">
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Last Name</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="{last_name}">
+        <label for="formGroupExampleInput2">Last Name</label>
+        <input type="test" class="form-control" id="formGroupExampleInput2" placeholder="{last_name}">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
