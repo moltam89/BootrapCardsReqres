@@ -22,15 +22,7 @@ export default class Card {
     `;
   }
 
-  create() {
-    this.parent.innerHTML += processTemplate(this.template, this.data);
-
-    //let modalDiv = document.getElementById(this.id);
-
-    //modalDiv.innerHTML = new Modal(this.id).getHTML();
-
-    //let formDiv = document.getElementById(this.id + "form");
-
-    //formDiv.innerHTML = processTemplate(new Form(this.id).getHTML(), this.data);
+  getHTML() {
+    return processTemplate(this.template, this.data);
   }
 }

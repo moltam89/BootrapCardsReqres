@@ -11,10 +11,9 @@ const showUserCards = () => {
     for (let x in response.data.data) {
       const data = response.data.data[x];
       let card = new Card(app, data);
-      card.create();
+      app.insertAdjacentHTML("beforeend", card.getHTML());
 
       const button = document.querySelector("#button" + data.id);
-      debugger;
 
       button.addEventListener("click", () => {
         console.log("profile");
