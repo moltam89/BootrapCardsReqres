@@ -6,6 +6,31 @@ import "./styles.css";
 
 let app = document.getElementById("app");
 
+const sendData = () => {
+  axios
+    .post("https://reqres.in/api/register", {
+      email: "eve.holt@reqres.in",
+      password: "pistol"
+    })
+    .then((response) => {
+      console.log(response);
+    });
+};
+
+const updateData = () => {
+  axios
+    .put("https://reqres.in/api/users/2", {
+      name: "morepheus",
+      job: "zion resident"
+    })
+    .then((response) => {
+      console.log(response);
+    });
+};
+
+sendData();
+updateData();
+
 const showUserCards = () => {
   axios.get("https://reqres.in/api/users").then((response) => {
     for (let x in response.data.data) {
