@@ -34,36 +34,41 @@ const showUserCards = () => {
 
         let saveButton = document.querySelector("#saveButton");
 
-        saveButton.addEventListener("click", () => {
-          let first_name = document.querySelector("#formGroupExampleInput1")
-            .value;
-          let last_name = document.querySelector("#formGroupExampleInput2")
-            .value;
-          let email = document.querySelector("#exampleInputEmail1").value;
+        saveButton.addEventListener(
+          "click",
+          () => {
+            let first_name = document.querySelector("#formGroupExampleInput1")
+              .value;
+            let last_name = document.querySelector("#formGroupExampleInput2")
+              .value;
+            let email = document.querySelector("#exampleInputEmail1").value;
 
-          if (first_name != "") {
-            data.first_name = first_name;
-          }
+            if (first_name != "") {
+              data.first_name = first_name;
+            }
 
-          if (last_name != "") {
-            data.last_name = last_name;
-          }
+            if (last_name != "") {
+              data.last_name = last_name;
+            }
 
-          if (email != "") {
-            data.email = email;
-          }
+            if (email != "") {
+              data.email = email;
+            }
 
-          data.name = data.first_name + ` ` + data.last_name;
+            data.name = data.first_name + ` ` + data.last_name;
 
-          let oldCard = document.querySelector("#card" + data.id);
-          oldCard.querySelector("h5").innerHTML = data.name;
+            let oldCard = document.querySelector("#card" + data.id);
+            debugger;
+            oldCard.querySelector("h5").innerHTML = data.name;
 
-          if (first_name != "" || last_name != "") {
-            updateData(data.id, data.name);
-          }
+            if (first_name != "" || last_name != "") {
+              updateData(data.id, data.name);
+            }
 
-          myModal.hide();
-        });
+            myModal.hide();
+          },
+          { once: true }
+        );
       });
     }
     /*const buttons = document.querySelectorAll(".profileButton");
