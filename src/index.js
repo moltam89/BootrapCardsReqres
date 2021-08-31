@@ -16,6 +16,12 @@ const updateData = (id, name) => {
     });
 };
 
+const deleteUser = (id) => {
+  axios.delete("https://reqres.in/api/users/" + id).then((response) => {
+    console.log(response);
+  });
+};
+
 const showUserCards = () => {
   axios.get("https://reqres.in/api/users").then((response) => {
     for (let x in response.data.data) {
@@ -70,19 +76,18 @@ const showUserCards = () => {
           { once: true }
         );
       });
-    }
-    /*const buttons = document.querySelectorAll(".profileButton");
 
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        console.log("profile");
-        const myModal = new bootstrap.Modal(document.getElementById("myModal"));
-        const myModalBody = document.querySelector(".modal-body");
-        const form = new Form();
-        myModalBody.innerHTML = processTemplate(form.getHTML(), this.data);
-        myModal.show();
+      const deleteButton = document.querySelector("#deleteButton" + data.id);
+
+      deleteButton.addEventListener("click", () => {
+        var result = confirm("Are you sure you want to delete the profile?");
+        if (result === true) {
+          deleteUser(data.id);
+          var card = document.getElementById("card" + data.id);
+          card.remove();
+        }
       });
-    });*/
+    }
   });
 };
 

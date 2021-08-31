@@ -14,8 +14,11 @@ export default class Card {
         <h5 class="card-title">{name}</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <!-- Button trigger modal -->
-        <button id="button{id}" type="button" class="btn btn-primary profileButton">
+        <button id="button{id}" type="button" class="btn btn-primary">
           Profile
+        </button>
+        <button id="deleteButton{id}" type="button" class="btn btn-primary">
+          Delete
         </button>
       </div>
     </div>
