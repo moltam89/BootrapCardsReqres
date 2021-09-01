@@ -6,6 +6,8 @@ import "./styles.css";
 
 let app = document.getElementById("app");
 
+let myConfirmModal;
+
 const updateData = (id, name) => {
   axios
     .put("https://reqres.in/api/users/" + id, {
@@ -21,6 +23,8 @@ const deleteUser = (id) => {
     console.log(response);
     var card = document.getElementById("card" + id);
     card.remove();
+
+    myConfirmModal.hide();
   });
 };
 
@@ -82,10 +86,30 @@ const showUserCards = () => {
       const deleteButton = document.querySelector("#deleteButton" + data.id);
 
       deleteButton.addEventListener("click", () => {
-        var result = confirm("Are you sure you want to delete the profile?");
-        if (result === true) {
-          deleteUser(data.id);
+        //var result = confirm("Are you sure you want to delete the profile?");
+        //if (result === true) {
+        //  deleteUser(data.id);
+        //}
+
+        if (!myConfirmModal) {
+          myConfirmModal = new bootstrap.Modal(
+            document.getElementById("myConfirmModal")
+          );
         }
+
+        myConfirmModal.show();
+
+        let deleteConfirmButton = document.querySelector(
+          "#deleteConfirmButton"
+        );
+
+        deleteConfirmButton.addEventListener(
+          "click",
+          (event) => {
+            deleteUser(data.id);
+          },
+          { once: true }
+        );
       });
     }
   });
