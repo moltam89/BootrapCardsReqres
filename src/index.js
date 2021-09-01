@@ -19,6 +19,8 @@ const updateData = (id, name) => {
 const deleteUser = (id) => {
   axios.delete("https://reqres.in/api/users/" + id).then((response) => {
     console.log(response);
+    var card = document.getElementById("card" + id);
+    card.remove();
   });
 };
 
@@ -83,8 +85,6 @@ const showUserCards = () => {
         var result = confirm("Are you sure you want to delete the profile?");
         if (result === true) {
           deleteUser(data.id);
-          var card = document.getElementById("card" + data.id);
-          card.remove();
         }
       });
     }
