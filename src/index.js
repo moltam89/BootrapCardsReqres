@@ -12,7 +12,7 @@ createNewProfileButton();
 
 function getEmptyData() {
   return {
-    id: 8,
+    id: id++,
     email: "",
     first_name: "",
     last_name: "",
@@ -78,6 +78,49 @@ function openDeleteModal(data) {
   );
 }
 
+function addSaveButtonEventListener(data, modal) {
+  let first_name = document.querySelector("#formGroupExampleInput1").value;
+  let last_name = document.querySelector("#formGroupExampleInput2").value;
+  let avatar = document.querySelector("#formGroupExampleInput3").value;
+  let email = document.querySelector("#exampleInputEmail1").value;
+
+  if (first_name != "") {
+    data.first_name = first_name;
+  }
+
+  if (last_name != "") {
+    data.last_name = last_name;
+  }
+
+  if (email != "") {
+    data.email = email;
+  }
+
+  if (avatar != "") {
+    data.avatar = avatar;
+  }
+
+  data.name = data.first_name + ` ` + data.last_name;
+
+  let oldCard = document.querySelector("#card" + data.id);
+  if (!oldCard) {
+    createUser(data);
+    modal.hide();
+    return;
+  }
+  debugger;
+  oldCard.querySelector("h5").innerHTML = data.name;
+  if (avatar != "") {
+    oldCard.querySelector("img").src = data.avatar;
+  }
+
+  if (first_name != "" || last_name != "") {
+    updateUser(data.id, data.name);
+  }
+
+  modal.hide();
+}
+
 function openProfileModal(data) {
   const modal = new bootstrap.Modal(document.getElementById("profileModal"));
   const modalBody = document.querySelector(".modal-body");
@@ -88,49 +131,10 @@ function openProfileModal(data) {
 
   saveButton.addEventListener(
     "click",
-    () => {
-      let first_name = document.querySelector("#formGroupExampleInput1").value;
-      let last_name = document.querySelector("#formGroupExampleInput2").value;
-      let avatar = document.querySelector("#formGroupExampleInput3").value;
-      let email = document.querySelector("#exampleInputEmail1").value;
-
-      if (first_name != "") {
-        data.first_name = first_name;
-      }
-
-      if (last_name != "") {
-        data.last_name = last_name;
-      }
-
-      if (email != "") {
-        data.email = email;
-      }
-
-      if (avatar != "") {
-        data.avatar = avatar;
-      }
-
-      data.name = data.first_name + ` ` + data.last_name;
-
-      let oldCard = document.querySelector("#card" + data.id);
-      if (!oldCard) {
-        createUser(data);
-        modal.hide();
-        return;
-      }
-      debugger;
-      oldCard.querySelector("h5").innerHTML = data.name;
-      if (avatar != "") {
-        oldCard.querySelector("img").src = data.avatar;
-      }
-
-      if (first_name != "" || last_name != "") {
-        updateUser(data.id, data.name);
-      }
-
-      modal.hide();
-    },
-    { once: true }
+    addSaveButtonEventListener(data, modal),
+    {
+      once: true
+    }
   );
 }
 
