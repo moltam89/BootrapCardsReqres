@@ -37,9 +37,13 @@ function createNewProfileButton() {
   button.innerHTML = "Add new profile";
   button.classList = "btn btn-primary";
 
-  button.addEventListener("click", () => {
-    openProfileModal(getEmptyData());
-  });
+  button.addEventListener(
+    "click",
+    () => {
+      openProfileModal(getEmptyData());
+    },
+    { once: true }
+  );
 
   divWrapper.append(button);
   app.appendChild(divWrapper);
@@ -79,6 +83,7 @@ function openDeleteModal(data) {
 }
 
 function addSaveButtonEventListener(data, modal) {
+  console.log("addSaveButtonEventListener");
   let first_name = document.querySelector("#formGroupExampleInput1").value;
   let last_name = document.querySelector("#formGroupExampleInput2").value;
   let avatar = document.querySelector("#formGroupExampleInput3").value;
@@ -128,10 +133,11 @@ function openProfileModal(data) {
   modal.show();
 
   let saveButton = document.querySelector("#saveButton");
+  saveButton.removeEventListener("click", addSaveButtonEventListener);
 
   saveButton.addEventListener(
     "click",
-    addSaveButtonEventListener(data, modal),
+    addSaveButtonEventListener.bind(null, data, modal),
     {
       once: true
     }
@@ -150,15 +156,23 @@ function showUserCard(data) {
 
   const profileButton = document.querySelector("#profileButton" + data.id);
 
-  profileButton.addEventListener("click", () => {
-    openProfileModal(data);
-  });
+  profileButton.addEventListener(
+    "click",
+    () => {
+      openProfileModal(data);
+    },
+    { once: true }
+  );
 
   const deleteButton = document.querySelector("#deleteButton" + data.id);
 
-  deleteButton.addEventListener("click", () => {
-    openDeleteModal(data);
-  });
+  deleteButton.addEventListener(
+    "click",
+    () => {
+      openDeleteModal(data);
+    },
+    { once: true }
+  );
 }
 
 async function showUserCards() {
@@ -169,6 +183,7 @@ async function showUserCards() {
 }
 
 async function updateUser(id, name) {
+  console.log("updateUser");
   let response = await axios.put("https://reqres.in/api/users/" + id, {
     name: "name"
   });
