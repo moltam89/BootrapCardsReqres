@@ -9,6 +9,8 @@ let Users = {};
 
 let app = document.getElementById("app");
 
+var carousel = new bootstrap.Carousel(document.querySelector("#carouselId"));
+
 let minId = 0;
 const MAX_ID = 10000;
 const modal = new bootstrap.Modal(document.getElementById("profileModal"));
@@ -21,10 +23,6 @@ let confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
 
 const deleteButton = document.querySelector("#deleteConfirmButton");
 deleteButton.addEventListener("click", deleteButtonClick);
-
-function showCarousel() {
-  let carouselElement = document.getElementById("carouselId");
-}
 
 function addUserToCarousel(data, active) {
   var div = document.createElement("div");
@@ -49,7 +47,6 @@ function addUserToCarousel(data, active) {
   deleteButton.addEventListener("click", openDeleteModal);
 }
 
-showCarousel();
 showUserCards();
 createNewProfileButton();
 
@@ -82,20 +79,11 @@ function createElementFromHTML(htmlString) {
 }
 
 function createNewProfileButton() {
-  let divWrapper = document.createElement("div");
-  divWrapper.id = "newProfileButtonDivWrapper";
-
-  let button = document.createElement("button");
-  button.id = "newProfileButton";
-  button.innerHTML = "Add new profile";
-  button.classList = "btn btn-primary";
+  let button = document.getElementById("newProfileButton");
 
   button.addEventListener("click", () => {
     openProfileModal(getEmptyData());
   });
-
-  divWrapper.append(button);
-  app.appendChild(divWrapper);
 }
 
 function deleteButtonClick(e) {
@@ -211,34 +199,17 @@ function openProfileModal(e) {
   modal.show();
 }
 
-function showUserCard(data) {
-  let card = new Card(app, data);
-
-  let parent = document.getElementById("newProfileButtonDivWrapper");
-
-  parent.parentNode.insertBefore(
-    createElementFromHTML(card.getHTML()),
-    parent.nextSibling
-  );
-
-  const profileButton = document.querySelector("#profileButton" + data.id);
-  profileButton.addEventListener("click", openProfileModal);
-
-  const deleteButton = document.querySelector("#deleteButton" + data.id);
-  deleteButton.addEventListener("click", openDeleteModal);
-}
-
 function showUserCards() {
   axios.get("https://reqres.in/api/users").then(function (response) {
-    for (let x in response.data.data) {
-      let user = response.data.data[x];
+    //for (let x in response.data.data) {
+    for (let i = 0; i < response.data.data.length; i++) {
+      let user = response.data.data[i];
       Users[user.id] = user;
 
       setMinId(user.id);
-      //showUserCard(user);
 
       let active = false;
-      if (user.id == 1) {
+      if (i == 0) {
         active = true;
       }
       addUserToCarousel(user, active);
@@ -267,6 +238,7 @@ function createUser(user) {
 
     user.id = id;
     Users[user.id] = user;
-    addUserToCarousel(user);
+    addUserToCarousel(user, false);
+    carousel.to(Object.keys(Users).length - 1);
   });
 }
