@@ -22,6 +22,34 @@ let confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
 const deleteButton = document.querySelector("#deleteConfirmButton");
 deleteButton.addEventListener("click", deleteButtonClick);
 
+function showCarousel() {
+  let carouselElement = document.getElementById("carouselId");
+}
+
+function addUserToCarousel(data, active) {
+  var div = document.createElement("div");
+
+  div.classList = "carousel-item";
+  if (active) {
+    div.classList += " active";
+  }
+
+  let carouselInnerElement = document.getElementById("carouselInnerId");
+
+  let card = new Card(app, data);
+
+  div.innerHTML = card.getHTML();
+
+  carouselInnerElement.append(div);
+
+  const profileButton = document.querySelector("#profileButton" + data.id);
+  profileButton.addEventListener("click", openProfileModal);
+
+  const deleteButton = document.querySelector("#deleteButton" + data.id);
+  deleteButton.addEventListener("click", openDeleteModal);
+}
+
+showCarousel();
 showUserCards();
 createNewProfileButton();
 
@@ -207,7 +235,13 @@ function showUserCards() {
       Users[user.id] = user;
 
       setMinId(user.id);
-      showUserCard(user);
+      //showUserCard(user);
+
+      let active = false;
+      if (user.id == 1) {
+        active = true;
+      }
+      addUserToCarousel(user, active);
     }
   });
 }
@@ -233,6 +267,6 @@ function createUser(user) {
 
     user.id = id;
     Users[user.id] = user;
-    showUserCard(user);
+    addUserToCarousel(user);
   });
 }

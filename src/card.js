@@ -8,7 +8,7 @@ export default class Card {
     this.data = data;
     this.data.name = this.data.first_name + ` ` + this.data.last_name;
     this.template = `
-    <div id="card{id}" class="card" style="width: 18rem;">
+    <div id="card{id}" class="card center" style="width: 18rem;">
       <img src="{avatar}" class="card-img-top" alt="{first_name}">
       <div class="card-body">
         <h5 class="card-title">{name}</h5>
